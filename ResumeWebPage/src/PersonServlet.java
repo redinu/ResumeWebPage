@@ -71,6 +71,15 @@ public class PersonServlet extends HttpServlet {
 			e.printStackTrace();
 		}catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				rs.close();
+				stmt.close();
+				con.close();
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+			
 		}
 		return p; 
 

@@ -4,13 +4,20 @@ import java.util.Date;
 
 public class Experience {
 	
+	private int experienceId; 
 	private String startDate;
 	private String endDate;
 	private String position;
 	private String company;
-	private ArrayList<String> duty = new ArrayList<String>();
+	private ArrayList<Duty> duty = new ArrayList<Duty>();
 	
 	
+	public int getExperienceId() {
+		return experienceId;
+	}
+	public void setExperienceId(int experienceId) {
+		this.experienceId = experienceId;
+	}
 	public String getPosition() {
 		return position;
 	}
@@ -35,11 +42,11 @@ public class Experience {
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
-	public ArrayList<String> getDuty() {
+	public ArrayList<Duty> getDuty() {
 		return duty;
 	}
-	public void setDuty(ArrayList<String> string) {
-		this.duty = string;
+	public void setDuty(ArrayList<Duty> duty2) {
+		this.duty = duty2;
 	}
 	@Override
 	public String toString() {

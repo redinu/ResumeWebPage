@@ -7,9 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-Education<br>
-<p>${education.typeOfDegree},</p> 
-<p>${education.institute}, ${education.endDate}</p> 
+<p>Experience</p>
+<p>${experience.position}</p>
+<p>${experience.company}, ${experience.startDate} - ${experience.endDate}</p>
+<p>${experience.duty.duty}</p>
 
 </body>
 </html>
