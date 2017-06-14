@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div>
+	<form action ="PersonServlet" method = "post">
+		First Name  <input type="text" name="firstName" id ="firstName"/> <br>
+		Last Name  <input type="text" name="lastName" id ="flastName"/> <br>
+		Email  <input type="text" name="email" id ="email"/> <br>
+	</form>
+</div>
+
+<div>
+	<form action="EducationServlet" method="post">
+		Degree obtained  <input type="text" name="typeOfDegree" id ="typeOfDegree"/> <br>
+		Institute  <input type="text" name="institute" id ="institute"/> <br>
+		End Date  <input type="text" name="endDate" id ="endDate"/> <br>
+	</form>
+	<a>Add another education</a>
+</div>
+
+<div>
+	<form action ="ExperienceServlet" method="post">
+		<input type="text" name="startDate" id="startDate" /> <br>
+		<input type="text" name="endDate" id="endDate" /> <br>
+		<input type="text" name="position" id="sposition" /> <br>
+		<input type="text" name="company" id="company" /> <br>
+		<input type="text" name="duty" id="duty" /> <br>
+	</form>
+	<a >Add another experience</a>
+</div>
+
+<div>
+	<form action="SkillServlet" method="post">
+		<input type= "text" name="skill" id="skill"/> <br>
+		<input type= "text" name="rating" id="rating"/> <br>
+	</form>
+
+</div>
+
+</body>	
+</html>
