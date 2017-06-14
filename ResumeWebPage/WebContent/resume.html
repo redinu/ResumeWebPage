@@ -7,39 +7,50 @@
 <body>
 <div>
 	<form action ="PersonServlet" method = "post">
-		First Name  <input type="text" name="firstName" id ="firstName"/> <br>
-		Last Name  <input type="text" name="lastName" id ="flastName"/> <br>
-		Email  <input type="text" name="email" id ="email"/> <br>
+		First Name <br> <input type="text" name="firstName" id ="firstName"/> <br>
+		Last Name <br> <input type="text" name="lastName" id ="flastName"/> <br>
+		Email <br> <input type="text" name="email" id ="email"/> <br>
+		<input type = "submit" value = "submit"/>
 	</form>
 </div>
-
+<hr>
 <div>
 	<form action="EducationServlet" method="post">
-		Degree obtained  <input type="text" name="typeOfDegree" id ="typeOfDegree"/> <br>
-		Institute  <input type="text" name="institute" id ="institute"/> <br>
-		End Date  <input type="text" name="endDate" id ="endDate"/> <br>
+		Degree obtained <br> <input type="text" name="typeOfDegree" id ="typeOfDegree"/> <br>
+		Institute <br>  <input type="text" name="institute" id ="institute"/> <br>
+		End Date  <br> <input type="text" name="endDate" id ="endDate"/> <br>
+		<button>Add another education</button> <br>
+		<input type = "submit" value = "submit"/>
 	</form>
-	<a>Add another education</a>
+	
 </div>
-
+<hr>
 <div>
+Add all your experience
 	<form action ="ExperienceServlet" method="post">
-		<input type="text" name="startDate" id="startDate" /> <br>
-		<input type="text" name="endDate" id="endDate" /> <br>
-		<input type="text" name="position" id="sposition" /> <br>
-		<input type="text" name="company" id="company" /> <br>
-		<input type="text" name="duty" id="duty" /> <br>
+		Start Date <br> <input type="date" name="startDate" id="startDate" /> <br>
+		End Date <br> <input type="text" name="endDate" id="endDate" /> <br>
+		Position <br> <input type="text" name="position" id="position" /> <br>
+		Company <br> <input type="text" name="company" id="company" /> <br>
+		Duty <br> <input type="text" name="duty" id="duty" /> <br>
+		<button>Add another experience</button> <br>
+		<input type = "submit" value = "submit"/>
+		
 	</form>
-	<a >Add another experience</a>
+	
 </div>
-
+<hr>
 <div>
+Add all your skills 
 	<form action="SkillServlet" method="post">
-		<input type= "text" name="skill" id="skill"/> <br>
-		<input type= "text" name="rating" id="rating"/> <br>
+		skill <br> <input type= "text" name="skill" id="skill"/> <br>
+		how do you rate your self in this skill<input type= "number" max = "10" min = "1" name="rating" id="rating"/> <br>
+		<button>Add another skill</button> <br>
+		<input type = "submit" value = "submit"/>
 	</form>
+	
 
 </div>
-
+<hr>
 </body>	
 </html>
