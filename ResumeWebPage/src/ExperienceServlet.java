@@ -23,7 +23,8 @@ public class ExperienceServlet extends HttpServlet {
 	Connection con = null;
 	Statement stmt = null;
 	ResultSet rs = null;
-	PreparedStatement pstmt;   
+	PreparedStatement pstmt;
+	ArrayList<Experience> experience = new ArrayList<Experience>();
     
     public ExperienceServlet() {
         super();
@@ -37,7 +38,7 @@ public class ExperienceServlet extends HttpServlet {
 		String pos = request.getParameter("position");
 		String comp = request.getParameter("company");
 		String duty = request.getParameter("duty");
-		Experience experience = saveExpereience(sDate, eDate, pos, comp, duty);
+		experience.add(saveExperience(sDate, eDate, pos, comp, duty));
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("experience", experience);
@@ -45,7 +46,7 @@ public class ExperienceServlet extends HttpServlet {
 		getServletContext().getRequestDispatcher("/experience.jsp").forward(request, response);
 	}
 	
-	public Experience saveExpereience(String sDate, String eDate, String pos, String comp, String dut){
+	public Experience saveExperience(String sDate, String eDate, String pos, String comp, String dut){
 		
 		Experience exp = new Experience();
 		System.out.println("");

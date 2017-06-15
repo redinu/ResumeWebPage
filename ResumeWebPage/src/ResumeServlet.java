@@ -18,16 +18,20 @@ public class ResumeServlet extends HttpServlet {
         
     }
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		doGet(request, response);
+		Person person = (Person) request.getSession().getAttribute("person");
+		Education edu = (Education) request.getSession().getAttribute("education");
+		Experience exp = (Experience)request.getSession().getAttribute("experience");
+	
+		
+		request.getSession().setAttribute("person", person);
+		request.getSession().setAttribute("education", edu);
+		request.getSession().setAttribute("experience", exp);
+		
+		getServletContext().getRequestDispatcher("/resume.jsp").forward(request,response);
 	}
 
 }

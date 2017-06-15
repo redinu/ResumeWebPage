@@ -3,7 +3,7 @@
 public class Skills {
 	
 	private String skill;
-	private String rating;
+	private int rating;
 	
 	
 	public String getSkill() {
@@ -12,11 +12,11 @@ public class Skills {
 	public void setSkill(String skill) {
 		this.skill = skill;
 	}
-	public String getRating() {
+	public int getRating() {
 		return rating;
 	}
-	public void setRating(String rating) {
-		this.rating = rating;
+	public void setRating(int rating2) {
+		this.rating = rating2;
 	}
 	@Override
 	public String toString() {

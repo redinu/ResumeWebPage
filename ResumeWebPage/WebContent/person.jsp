@@ -9,5 +9,25 @@
 <body>
 <p>${person.firstName} ${person.lastName}</p>
 <p>${person.email}</p>
+<c:if  test="${not empty educations}">
+<c:forEach items="${educations}" var="education">
+        
+         <c:out value = "${education.typeOfDegree}",></c:out>
+		 <c:out value ="${education.institute}" ,></c:out> <c:out value="${education.endDate}"></c:out> 
+       
+</c:forEach>
+</c:if>
+ 
+<div>
+	<form id ="education" name ="education" action="EducationServlet" method="post">
+		Degree obtained <br> <input type="text" name="typeOfDegree" id ="typeOfDegree"/> <br>
+		Institute <br>  <input type="text" name="institute" id ="institute"/> <br>
+		End Date  <br> <input type="text" name="endDate" id ="endDate"/> <br>
+		<button>Add another education</button> <br>
+		<input type="submit" value="submit" />
+	</form>
+	
+</div>
+
 </body>
 </html>

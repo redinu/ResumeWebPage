@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,7 +26,7 @@ public class EducationServlet extends HttpServlet {
 	ResultSet rs = null;
 	PreparedStatement pstmt;
     Education edu = new Education();
-    
+    ArrayList<Education> educations = new ArrayList<Education>();
     public EducationServlet() {
         super();
        
@@ -33,13 +35,18 @@ public class EducationServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+    	educations = (ArrayList<Education>) request.getSession(false).getAttribute("educations");
+		
+		
 		String degree = request.getParameter("typeOfDegree");
 		String inst = request.getParameter("institute");
 		String eDate = request.getParameter("endDate");
 		
-		HttpSession session = request.getSession();
-		Education education = saveEducation(degree, inst, eDate);
-		session.setAttribute("education", education);
+		HttpSession session = request.getSession(false);
+		
+		educations.add(saveEducation(degree, inst, eDate));
+		session.setAttribute("educations", educations);
+		request.setAttribute("educations", educations);
 		getServletContext().getRequestDispatcher("/education.jsp").forward(request,response);
 		
 	}

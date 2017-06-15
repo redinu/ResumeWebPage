@@ -9,7 +9,12 @@ public class Experience {
 	private String endDate;
 	private String position;
 	private String company;
-	private ArrayList<Duty> duty = new ArrayList<Duty>();
+	private ArrayList<Duty> duty;
+	
+	public Experience(){
+		
+	 duty = new ArrayList<Duty>();
+	}
 	
 	
 	public int getExperienceId() {

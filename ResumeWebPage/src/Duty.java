@@ -17,6 +17,10 @@ public class Duty {
 	public void setEx(Experience ex) {
 		this.ex = ex;
 	}
+	@Override
+	public String toString() {
+		return  duty ;
+	}
 	
 	
 

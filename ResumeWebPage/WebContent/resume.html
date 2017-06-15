@@ -7,51 +7,38 @@
 </head>
 <body>
 <div>
-	<form action ="PersonServlet" method = "post">
+	<form id ="person" name = "person" action ="PersonServlet" method = "post">
 		First Name <br> <input type="text" name="firstName" id ="firstName"/> <br>
 		Last Name <br> <input type="text" name="lastName" id ="lastName"/> <br>
 		Email <br> <input type="text" name="email" id ="email"/> <br>
-		<input type = "submit" value = "submit"/>
-	</form>
-</div>
-<hr>
-<div>
-	<form action="EducationServlet" method="post">
-		Degree obtained <br> <input type="text" name="typeOfDegree" id ="typeOfDegree"/> <br>
-		Institute <br>  <input type="text" name="institute" id ="institute"/> <br>
-		End Date  <br> <input type="text" name="endDate" id ="endDate"/> <br>
-		<button>Add another education</button> <br>
-		<input type = "submit" value = "submit"/>
-	</form>
-	
-</div>
-<hr>
-<div>
-Add all your experience
-	<form action ="ExperienceServlet" method="post">
-		Start Date <br> <input type="date" name="startDate" id="startDate" /> <br>
-		End Date <br> <input type="text" name="endDate" id="endDate" /> <br>
-		Position <br> <input type="text" name="position" id="position" /> <br>
-		Company <br> <input type="text" name="company" id="company" /> <br>
-		Duty <br> <input type="text" name="duty" id="duty" /> <br>
-		<button>Add another experience</button> <br>
-		<input type = "submit" value = "submit"/>
+		<input type="submit" value="submit"  />
 		
 	</form>
-	
 </div>
-<hr>
-<div>
-Add all your skills 
-	<form action="SkillServlet" method="post">
-		skill <br> <input type= "text" name="skill" id="skill"/> <br>
-		how do you rate your self in this skill<input type= "number" max = "10" min = "1" name="rating" id="rating"/> <br>
-		<button>Add another skill</button> <br>
-		<input type = "submit" value = "submit"/>
-	</form>
-	
 
-</div>
-<hr>
+
+<script>
+
+
+/* /* function validate(form){
+    //forms processsing goes here...
+    console.log(form, form.name)
+    return false;
+}
+<input type="button" value="submit" onclick="submitForms()" />
+function submitForms(){
+		document.forms["skill"].action="SkillServlet";
+		document.forms["skill"].submit()
+		document.forms["person"].action="PersonServlet";
+        document.forms["person"].submit();
+        document.forms["education"].action="EducationServlet"
+        document.forms["education"].submit();
+        document.forms["experience"].action="ExperienceServlet";
+        document.forms["experience"].submit();
+       
+    }
+}
+ */ */
+</script>
 </body>	
 </html>

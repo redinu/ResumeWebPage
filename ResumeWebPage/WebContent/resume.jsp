@@ -7,27 +7,23 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 <p>${person.firstName} ${person.lastName}</p>
 <p>${person.email}</p>
+
 Education<br>
 <p>${education.typeOfDegree},</p> 
 <p>${education.institute}, ${education.endDate}</p> 
+
 <p>Experience</p>
 <p>${experience.position}</p>
 <p>${experience.company}, ${experience.startDate} - ${experience.endDate}</p>
 <p>${experience.duty}</p>
-<form action ="education.jsp" method = post>
-	<button>Add another experience</button> <br>
+
+<p>Skills</p>
+<p>${skill.skill} </p>
+<form action = "SkillServlet" method ="post">
+<button>Add another skill</button>
 </form>
-<div>
-Add all your skills 
-	<form id= "skill" name= "skill" action="SkillServlet" method="post">
-		skill <br> <input type= "text" name="skill" /> <br>
-		how do you rate your self in this skill<input type= "number" max = "10" min = "1" name="rating" id="rating"/> <br>
-		
-		<input type="submit" value="submit" />
-		
-	</form>
-</div>
 </body>
 </html>

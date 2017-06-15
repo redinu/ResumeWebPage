@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,13 +39,15 @@ public class PersonServlet extends HttpServlet {
 		fName = request.getParameter("firstName");
 		lName = request.getParameter("lastName");
 		email = request.getParameter("email");
+		ArrayList<Education> educations = (ArrayList<Education>) request.getSession().getAttribute("educations");
 		Person person = savePerson();
 		
-		String personJsp = "/person.jsp";
 		HttpSession session = request.getSession();
 		session.setAttribute("person", person);
+		session.setAttribute("educations", educations);
 		
-		getServletContext().getRequestDispatcher(personJsp).forward(request,response);
+		getServletContext().getRequestDispatcher("/person.jsp").forward(request,response);
+		
 	}
 	
 	public Person savePerson(){
@@ -71,15 +74,6 @@ public class PersonServlet extends HttpServlet {
 			e.printStackTrace();
 		}catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		}finally {
-			try {
-				rs.close();
-				stmt.close();
-				con.close();
-			}catch(SQLException e){
-				e.printStackTrace();
-			}
-			
 		}
 		return p; 
 
