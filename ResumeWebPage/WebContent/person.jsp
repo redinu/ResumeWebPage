@@ -24,7 +24,6 @@
 		Degree obtained <br> <input type="text" name="typeOfDegree" id ="typeOfDegree"/> <br>
 		Institute <br>  <input type="text" name="institute" id ="institute"/> <br>
 		End Date  <br> <input type="text" name="endDate" id ="endDate"/> <br>
-		<button>Add another education</button> <br>
 		<input type="submit" value="submit" />
 	</form>
 	

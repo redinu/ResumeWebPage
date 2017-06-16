@@ -24,7 +24,7 @@ public class ExperienceServlet extends HttpServlet {
 	Statement stmt = null;
 	ResultSet rs = null;
 	PreparedStatement pstmt;
-	
+	Experience exp = new Experience();
 	ArrayList<Experience> experiences = new ArrayList<Experience>();
     
     public ExperienceServlet() {
@@ -33,19 +33,12 @@ public class ExperienceServlet extends HttpServlet {
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		experiences = new ArrayList<Experience>();
 		HttpSession session = request.getSession(false);
 		ArrayList<Experience> expList = new ArrayList<Experience>();
 	
 		if(session != null && session.getAttribute("experiences") != null){
 			expList = (ArrayList<Experience>) session.getAttribute("experiences");
-			int size = Integer.parseInt(request.getParameter("counter"));
-			for(int j=0;j<size;j++){
-				int id = Integer.parseInt(request.getParameter("expId"));
-				System.out.println(id);
-				Experience exp = getExperienceById(id);
-				expList.add(j,exp);
-			}
 			
 		}
 		
@@ -65,7 +58,7 @@ public class ExperienceServlet extends HttpServlet {
 	
 	public Experience saveExperience(String sDate, String eDate, String pos, String comp, String dut){
 		
-		Experience exp = new Experience();
+		exp = new Experience();
 		System.out.println("");
 		String querry = "insert into experience(startDate,endDate,company,position) values(?,?,?,?)";
 		try{

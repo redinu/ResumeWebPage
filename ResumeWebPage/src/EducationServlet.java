@@ -26,7 +26,7 @@ public class EducationServlet extends HttpServlet {
 	ResultSet rs = null;
 	PreparedStatement pstmt;
     Education edu = new Education();
-    ArrayList<Education> educations = new ArrayList<Education>();
+    ArrayList<Education> ed = new ArrayList<Education>();
     public EducationServlet() {
         super();
        
@@ -34,19 +34,12 @@ public class EducationServlet extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		ed = new ArrayList<Education>();
 		HttpSession session = request.getSession(false);
-		ArrayList<Education> ed = new ArrayList<Education>();
+		int size = 0;
 		if(session != null && session.getAttribute("educations") != null){
 			ed = (ArrayList<Education>) session.getAttribute("educations");
-			int size = Integer.parseInt(request.getParameter("counter"));
-			for(int j=0;j<size;j++){
-				int id = Integer.parseInt(request.getParameter("eduId"));
-				System.out.println(id);
-				Education edu = getEducationById(id);
-				ed.add(j,edu);
-			}
-			
+		
 		}
 		
 		String degree = request.getParameter("typeOfDegree");
@@ -61,7 +54,7 @@ public class EducationServlet extends HttpServlet {
 	}
 	
 	public Education saveEducation(String degree, String inst, String eDate){
-		
+		edu = new Education();
 		String query = "insert into education(degree, institute,endDate) values(?,?,?)";
 
 		try{

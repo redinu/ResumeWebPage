@@ -7,25 +7,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-	.add{
+	#add{
    		display:none;
 	}
 </style>
 </head>
 <body>
-	<script>
 	
-		document.getElementById("addBtn").addEventListener("click", showform);
-			
-		function showform() {
-			
-			documents.getElementsByClassName(".add").style.display = 'block';
- 		
-			}
-	</script>
 	<p>${person.firstName}${person.lastName}</p>
-	<p>${person.email}</p>
-	Education
+	<p>${person.email}</p><br>
+	<hr>
+	<h6>Education</h6>
 	<br>
 	<c:forEach items="${educations}" var="education">
 
@@ -33,9 +25,9 @@
 		<c:out value="${education.institute}"></c:out>
 		<c:out value="${education.endDate}"></c:out>
 	</c:forEach>
-<button id = "addBtn">Add another education</button>
+<button id = "addBtn" onClick='document.getElementById("add").style.display = "block";'>Add another education</button>
 	
-<form action="EducationServlet" method="post" commandName="educations" >
+<form id ="add" action="EducationServlet" method="post" commandName="educations" >
 
  			<% int counter=0; %>
 		<c:forEach items="${educations}" var="education">	
@@ -54,7 +46,7 @@
 		<div>
 		<c:if test="${not empty educations}">
 			<p>${experience[0].position}</p>
-			<p>${experience[0].company},${experience[0].startDate} -
+			<p>${experience[0].company} ${experience[0].startDate} -
 				${experience[0].endDate}</p>
 			<p>${experience[0].duty}</p>
 		</c:if>
@@ -64,16 +56,26 @@
 		<form id="experience" name="experience" action="ExperienceServlet"
 			method="post">
 			Start Date <br> <input type="text" name="startDate"
-				id="startDate" /> <br> End Date <br> <input type="text"
-				name="endDate" id="endDate" /> <br> Position <br> <input
-				type="text" name="position" id="position" /> <br> Company <br>
-			<input type="text" name="company" id="company" /> <br> Duty <br>
-			<input type="text" name="duty" id="duty" /> <br> <input
-				type="submit" value="submit" />
+				id="startDate" /> <br> 
+			End Date <br> <input type="text"
+				name="endDate" id="endDate" /> <br> 
+			Position <br> <input type="text" name="position" id="position" /> <br> 
+			Company <br><input type="text" name="company" id="company" /> <br> 
+			Duty <br><input type="text" name="duty" id="duty" /> <br>
+			 <input type="submit" value="submit" />
 		</form>
 
 	</div>
-	
+	<script>
+
+		document.getElementById("addBtn").addEventListener("click", showform);
+			
+		function showform() {
+			
+			document.getElementById("add").style.display = 'block';
+ 		
+			}
+	</script>
 	</body>
 	</html>
 

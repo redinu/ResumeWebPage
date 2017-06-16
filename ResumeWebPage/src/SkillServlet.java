@@ -25,31 +25,24 @@ public class SkillServlet extends HttpServlet {
 	ResultSet rs = null;
 	PreparedStatement pstmt;   
     ArrayList<Skills> SkillList = new ArrayList<Skills>();
-    
+    Skills skl = new Skills();
     public SkillServlet() {
         super();
     }
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		SkillList = new ArrayList<Skills>();
 		HttpSession session = request.getSession(false);
 		ArrayList<Skills> skList = new ArrayList<Skills>();
 	
 		if(session != null && session.getAttribute("skills") != null){
 			skList = (ArrayList<Skills>) session.getAttribute("skills");
-			int size = Integer.parseInt(request.getParameter("counter"));
-			for(int j=0;j<size;j++){
-				int id = Integer.parseInt(request.getParameter("skId"));
-				System.out.println(id);
-				Skills skl = getSkillById(id);
-				skList.add(j, skl);
-			}
 			
 		}
 		
 		String sk = request.getParameter("skill");
-		int rating = Integer.parseInt(request.getParameter("rating"));
+		String rating = request.getParameter("rating");
 		
 		
 		Skills skill = saveSkill(sk, rating);
@@ -59,10 +52,10 @@ public class SkillServlet extends HttpServlet {
 		getServletContext().getRequestDispatcher("/resume.jsp").forward(request, response);
 	}
 
-	public Skills saveSkill(String sk, int rating){
+	public Skills saveSkill(String sk, String rating){
 		
 		String querry = "insert into skills(skill,rating) values(?,?)"; 
-		Skills skl = new Skills();
+		 skl = new Skills();
 		
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
@@ -71,7 +64,7 @@ public class SkillServlet extends HttpServlet {
 
 			PreparedStatement pstmt = con.prepareStatement(querry);
 			pstmt.setString(1, sk);
-			pstmt.setInt(2, rating);
+			pstmt.setString(2, rating);
 			
 			skl.setSkill(sk);
 			skl.setRating(rating);
@@ -100,7 +93,7 @@ public Skills getSkillById(int id){
 			
 			
 			while(rs.next()){
-				sk.setRating(Integer.parseInt(rs.getString("rating")));
+				sk.setRating(rs.getString("rating"));
 				sk.setSkill(rs.getString("skill"));
 				
 			}
