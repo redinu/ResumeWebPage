@@ -35,18 +35,27 @@ public class EducationServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-    	educations = (ArrayList<Education>) request.getSession(false).getAttribute("educations");
-		
+		HttpSession session = request.getSession(false);
+		ArrayList<Education> ed = new ArrayList<Education>();
+		if(session != null && session.getAttribute("educations") != null){
+			ed = (ArrayList<Education>) session.getAttribute("educations");
+			int size = Integer.parseInt(request.getParameter("counter"));
+			for(int j=0;j<size;j++){
+				int id = Integer.parseInt(request.getParameter("eduId"));
+				System.out.println(id);
+				Education edu = getEducationById(id);
+				ed.add(j,edu);
+			}
+			
+		}
 		
 		String degree = request.getParameter("typeOfDegree");
 		String inst = request.getParameter("institute");
 		String eDate = request.getParameter("endDate");
 		
-		HttpSession session = request.getSession(false);
+		ed.add(saveEducation(degree, inst, eDate));
+		session.setAttribute("educations", ed);
 		
-		educations.add(saveEducation(degree, inst, eDate));
-		session.setAttribute("educations", educations);
-		request.setAttribute("educations", educations);
 		getServletContext().getRequestDispatcher("/education.jsp").forward(request,response);
 		
 	}
@@ -69,7 +78,43 @@ public class EducationServlet extends HttpServlet {
 			edu.setInstitute(inst);
 			edu.setEndDate(eDate);
 			
+			String getId = "select educationId FROM education ORDER BY educationId DESC LIMIT 1 ;";
+			System.out.println(getId);
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(getId);
+			int eduId = 0;
+			if(rs.next()){
+				eduId = rs.getInt("educationId");
+			}
+			
+			edu.setEducationId(eduId);
 
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return edu; 
+	}
+	
+public Education getEducationById(int id){
+		
+		String querry = "Select * from education where educationId = " + id + ";";
+
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/Resumes?"
+					+ "user=root&password=password");
+
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(querry);
+			
+			while(rs.next()){
+				edu.setTypeOfDegree(rs.getString("degree"));
+				edu.setInstitute(rs.getString("degree"));
+				edu.setEndDate(rs.getString("degree"));
+			
+			}
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}catch (ClassNotFoundException e) {

@@ -24,7 +24,8 @@ public class ExperienceServlet extends HttpServlet {
 	Statement stmt = null;
 	ResultSet rs = null;
 	PreparedStatement pstmt;
-	ArrayList<Experience> experience = new ArrayList<Experience>();
+	
+	ArrayList<Experience> experiences = new ArrayList<Experience>();
     
     public ExperienceServlet() {
         super();
@@ -33,15 +34,31 @@ public class ExperienceServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		HttpSession session = request.getSession(false);
+		ArrayList<Experience> expList = new ArrayList<Experience>();
+	
+		if(session != null && session.getAttribute("experiences") != null){
+			expList = (ArrayList<Experience>) session.getAttribute("experiences");
+			int size = Integer.parseInt(request.getParameter("counter"));
+			for(int j=0;j<size;j++){
+				int id = Integer.parseInt(request.getParameter("expId"));
+				System.out.println(id);
+				Experience exp = getExperienceById(id);
+				expList.add(j,exp);
+			}
+			
+		}
+		
 		String sDate = request.getParameter("startDate");
 		String eDate = request.getParameter("endDate");
 		String pos = request.getParameter("position");
 		String comp = request.getParameter("company");
 		String duty = request.getParameter("duty");
-		experience.add(saveExperience(sDate, eDate, pos, comp, duty));
 		
-		HttpSession session = request.getSession();
-		session.setAttribute("experience", experience);
+		expList.add(saveExperience(sDate, eDate, pos, comp, duty));
+		
+		session.setAttribute("experiences", expList);
+		
 		
 		getServletContext().getRequestDispatcher("/experience.jsp").forward(request, response);
 	}
@@ -92,7 +109,7 @@ public class ExperienceServlet extends HttpServlet {
 	
 	public Duty saveDuty(String dut,int experienceId, Experience exp){
 		
-		String querry = "insert into duty(duty) values(?)";
+		String querry = "insert into duty(duty, experienceId) values(?, ?)";
 		Duty duty = new Duty();
 		
 		try{
@@ -102,6 +119,7 @@ public class ExperienceServlet extends HttpServlet {
 
 			PreparedStatement pstmt = con.prepareStatement(querry);
 			pstmt.setString(1, dut);
+			pstmt.setInt(2, experienceId);
 			pstmt.executeUpdate();
 
 			duty.setDuty(dut);
@@ -116,5 +134,71 @@ public class ExperienceServlet extends HttpServlet {
 		return duty;
 		
 	}
+	
+public Experience getExperienceById(int id){
+		
+		Experience ex = new Experience() ;
+		String querry = "Select * from experience where experienceId = " + id + ";";
+
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/Resumes?"
+					+ "user=root&password=password");
+
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(querry);
+			
+			
+			while(rs.next()){
+				ex.setStartDate(rs.getString("startDate"));
+				ex.setEndDate(rs.getString("endDate"));
+				ex.setCompany(rs.getString("company"));
+				ex.setPosition(rs.getString("position"));
+				
+			}
+			
+			Duty duty = getDutyByExId(id);
+			ArrayList<Duty> dutList = new ArrayList<Duty>();
+			dutList.add(duty);
+			
+			ex.setDuty(dutList);
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return ex; 
+	}
+	
+
+	public Duty getDutyByExId(int id){
+	
+		Duty d = new Duty();
+	
+		String querry = "Select * from duty where experienceId = " + id + ";";
+	
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/Resumes?"
+				+ "user=root&password=password");
+
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(querry);
+		
+		
+			while(rs.next()){
+				d.setDuty(rs.getString("duty"));
+			
+			
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return d; 
+}
 
 }
+
+

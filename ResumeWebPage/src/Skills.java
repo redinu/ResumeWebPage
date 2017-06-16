@@ -2,10 +2,17 @@
 
 public class Skills {
 	
+	private int skillId;
 	private String skill;
 	private int rating;
 	
 	
+	public int getSkillId() {
+		return skillId;
+	}
+	public void setSkillId(int skillId) {
+		this.skillId = skillId;
+	}
 	public String getSkill() {
 		return skill;
 	}

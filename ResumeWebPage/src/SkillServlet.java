@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,7 +24,7 @@ public class SkillServlet extends HttpServlet {
     Statement stmt = null;
 	ResultSet rs = null;
 	PreparedStatement pstmt;   
-    
+    ArrayList<Skills> SkillList = new ArrayList<Skills>();
     
     public SkillServlet() {
         super();
@@ -32,12 +33,28 @@ public class SkillServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		HttpSession session = request.getSession(false);
+		ArrayList<Skills> skList = new ArrayList<Skills>();
+	
+		if(session != null && session.getAttribute("skills") != null){
+			skList = (ArrayList<Skills>) session.getAttribute("skills");
+			int size = Integer.parseInt(request.getParameter("counter"));
+			for(int j=0;j<size;j++){
+				int id = Integer.parseInt(request.getParameter("skId"));
+				System.out.println(id);
+				Skills skl = getSkillById(id);
+				skList.add(j, skl);
+			}
+			
+		}
+		
 		String sk = request.getParameter("skill");
 		int rating = Integer.parseInt(request.getParameter("rating"));
 		
-		HttpSession session = request.getSession();
+		
 		Skills skill = saveSkill(sk, rating);
-		session.setAttribute("skill", skill);
+		skList.add(skill);
+		session.setAttribute("skills", skList);
 		
 		getServletContext().getRequestDispatcher("/resume.jsp").forward(request, response);
 	}
@@ -67,4 +84,33 @@ public class SkillServlet extends HttpServlet {
 		return skl;
 			
 	}
+	
+public Skills getSkillById(int id){
+		
+		Skills sk = new Skills() ;
+		String querry = "Select * from skills where skillId = " + id + ";";
+
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/Resumes?"
+					+ "user=root&password=password");
+
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(querry);
+			
+			
+			while(rs.next()){
+				sk.setRating(Integer.parseInt(rs.getString("rating")));
+				sk.setSkill(rs.getString("skill"));
+				
+			}
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return sk; 
+	}
+	
 }

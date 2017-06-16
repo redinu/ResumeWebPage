@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,8 +13,8 @@
 <c:if  test="${not empty educations}">
 <c:forEach items="${educations}" var="education">
         
-         <c:out value = "${education.typeOfDegree}",></c:out>
-		 <c:out value ="${education.institute}" ,></c:out> <c:out value="${education.endDate}"></c:out> 
+         <c:out value = "${education.typeOfDegree}"></c:out>
+		 <c:out value ="${education.institute}" ></c:out> <c:out value="${education.endDate}"></c:out> 
        
 </c:forEach>
 </c:if>
