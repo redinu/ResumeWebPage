@@ -1,0 +1,116 @@
+create schema Resumes;
+drop table if exists education;
+drop table if exists experience;
+drop table if exists duty;
+drop table if exists person;
+drop table if exists skills;
+drop table if exists resume;
+drop table if exists exp_duty;
+
+create table education(
+educationId int not null auto_increment,
+degree varchar(50),
+institute varchar(50),
+endDate varchar(50),
+primary key(educationId));
+
+
+insert into education(degree, institute,endDate) values('BS in Psychology','UMaryland','2002-02-03');
+insert into education(degree, institute,endDate) values('MS in Software Engineering','Johns Hopkins U','2005');
+select * from education;
+
+create table experience(
+experienceId int not null auto_increment,
+startDate varchar(50),
+endDate varchar(50),
+position varchar(50),
+company varchar(50),
+primary key(experienceId));
+
+insert into experience(startDate,endDate,position,company) values('June 2015','Present','Software Developer II','Amtrak');
+insert into experience(startDate,endDate,position,company) values('June 2014','June 2015','Software Developer I','Amtrak');
+insert into experience(startDate,endDate,position,company) values('August 2005','May 2014','Business Analyst','DCPS');
+
+select * from experience;
+
+
+create table duty(
+dutyId int not null auto_increment,
+duty varchar(255),
+primary key(dutyId));
+
+insert into duty(duty) values('Lorem ipsum');
+insert into duty(duty) values('Gaudeamos Igitur Iuvenes Dum Somos');
+
+select * from duty;
+
+create table exp_duty(
+expDutyId int not null auto_increment,
+experienceId int,
+dutyId int,
+primary key(expDutyId));
+
+
+insert into exp_duty(experienceId,dutyId) values(1,1);
+insert into exp_duty(experienceId,dutyId) values(1,2);
+
+create table person(
+personId int not null auto_increment,
+firstName varchar(50),
+lastName varchar(50),
+email varchar(50),
+primary key(personId));
+
+
+insert into person(firstName,lastName,email) values('John J','Jingleheimer-Schmidt','jjjschmidt@gmail.com');
+select * from person;
+
+create table skills(
+skillId int not null auto_increment,
+skill varchar(50),
+rating varchar(50),
+primary key(skillId));
+
+
+insert into skills(skill,rating) values('PHP', 'highly skilled');
+insert into skills(skill,rating) values('Ruby on Rails', 'proficient');
+insert into skills(skill,rating) values('Perl', 'familiar');
+
+select * from skills;
+
+create table resume(
+resumeId int not null auto_increment,
+personId int,
+education1 int,
+education2 int,
+education3 int,
+experience1 int,
+experience2 int,
+experience3 int,
+skill1 int,
+skill2 int,
+skill3 int,
+primary key(resumeId));
+
+select * from resume;
+
+insert into resume(personId,education1,education2,experience1,experience2,experience3,skill1,skill2,skill3) values(1,1,2,1,2,3,1,2,3);
+
+
+select firstName,lastName,email,ed.degree as firstDegree,ed.institute as Institute,ed.endDate as graduationDate1,
+ed2.degree as secondDegree,ed2.institute as Institute,ed2.endDate as graduationDate2,
+ex1.startDate,ex1.endDate,ex1.position,ex1.company,
+ex2.startDate, ex2.endDate, ex2.position, ex2.company,
+ex3.startDate, ex3.endDate, ex3.position, ex3.company,
+sk1.skill as skill1, sk1.rating,
+sk2.skill as skill2, sk2.rating,
+sk3.skill as skill3, sk3.rating
+from person p  inner join resume as r on r.personId = p.personId
+inner join education ed on ed.educationId = r.education1 
+inner join education ed2 on ed2.educationId = r.education2
+inner join experience ex1 on ex1.experienceId = r.experience1
+inner join experience ex2 on ex2.experienceId = r.experience2
+inner join experience ex3 on ex3.experienceId = r.experience3
+inner join skills sk1 on sk1.skillId = r.skill1
+inner join skills sk2 on sk2.skillId = r.skill2
+inner join skills sk3 on sk3.skillId = r.skill3;
